@@ -20,7 +20,7 @@ const NAV = [
 
 const TICKER = [
   "Carbon-neutral delivery worldwide",
-  "Free shipping over ₹250",
+  "Free shipping over ₹4,999",
   "Lifetime repairs on every piece",
   "Certified B Corp since 2019",
   "100% traceable supply chain",
@@ -78,8 +78,8 @@ export function SiteHeader() {
           <div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-4 md:px-10">
             <div className="flex items-center gap-10">
               <Link href="/" className="group relative">
-                <span className="font-display text-[26px] leading-none tracking-[-0.03em] md:text-[30px]">
-                  Bliss
+                <span className="font-display text-[22px] leading-none tracking-[-0.02em] md:text-[26px]">
+                  Fashion by Gaurav
                 </span>
                 <span className="absolute -right-3 top-0 h-1 w-1 rounded-full bg-ember transition-transform duration-500 group-hover:scale-[2.4]" />
               </Link>
@@ -156,7 +156,7 @@ export function SiteHeader() {
               className="flex h-full flex-col px-6 py-6"
             >
               <div className="flex items-center justify-between">
-                <span className="font-display text-3xl">Bliss</span>
+                <span className="font-display text-2xl">Fashion by Gaurav</span>
                 <button
                   type="button"
                   aria-label="Close menu"

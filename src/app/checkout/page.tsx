@@ -68,7 +68,7 @@ export default function CheckoutPage() {
       const saved = await savedResponse.json();
       if (saved.savedOrder) { setSavedCart(saved.savedOrder); setValues(saved.savedOrder.delivery); setShipping(saved.savedOrder.delivery.shippingMethod); }
       if (!window.Razorpay) throw new Error("Payment window unavailable.");
-      const checkout = new window.Razorpay({ key: data.keyId, amount: data.amount, currency: data.currency, name: "Bliss", order_id: data.gatewayOrderId, prefill: data.prefill, theme: { color: "#a0522d" }, modal: { ondismiss: () => { setStatus("idle"); setError("Payment window closed. Your order is saved; resume or check payment status below."); } }, handler: async response => {
+      const checkout = new window.Razorpay({ key: data.keyId, amount: data.amount, currency: data.currency, name: "Fashion by Gaurav", order_id: data.gatewayOrderId, prefill: data.prefill, theme: { color: "#a0522d" }, modal: { ondismiss: () => { setStatus("idle"); setError("Payment window closed. Your order is saved; resume or check payment status below."); } }, handler: async response => {
         try { await verify(data.orderNumber, response); } catch (err) { setError(err instanceof Error ? err.message : "Payment confirmation pending. Check status before retrying."); } finally { setStatus("idle"); }
       } });
       checkout.on("payment.failed", () => { setError("Payment was not completed. You can retry in the payment window or close it and check status."); });

@@ -120,7 +120,7 @@ export function AtelierStory() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={EDITORIAL_IMAGES.atelier}
-                alt="Inside the Bliss atelier"
+                alt="Inside the Fashion by Gaurav atelier"
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -160,7 +160,7 @@ export function AtelierStory() {
               { k: "Fibre first", v: "Regenerative, reclaimed or undyed — in that order." },
               { k: "Small runs", v: "Average batch of 180 pieces. We restock, never dump." },
               { k: "Open ledger", v: "Costs, margins and mill names published twice a year." },
-              { k: "Kept for life", v: "Free repairs, forever. Resale through Bliss Archive." },
+              { k: "Kept for life", v: "Free repairs, forever. Resale through Gaurav Archive." },
             ].map((item, index) => (
               <Reveal key={item.k} delay={index * 0.07} className="bg-bone p-6">
                 <h4 className="label-xs">{item.k}</h4>
@@ -240,7 +240,7 @@ const QUOTES = [
     city: "Copenhagen",
   },
   {
-    quote: "I own four Bliss pieces and they have quietly replaced about twenty others.",
+    quote: "I own four Fashion by Gaurav pieces and they have quietly replaced about twenty others.",
     name: "Jonas R.",
     city: "Berlin",
   },

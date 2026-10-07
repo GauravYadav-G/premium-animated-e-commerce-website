@@ -137,13 +137,13 @@ export function SiteFooter() {
           transition={{ duration: 1.2, ease: EASE_SILK }}
           className="mt-24 border-t border-bone/12 pt-10"
         >
-          <h2 className="font-display select-none text-[clamp(4.5rem,19vw,17rem)] leading-[0.78] tracking-[-0.04em] text-bone/95">
-            BLISS<span className="text-clay">.</span>
+          <h2 className="font-display select-none text-[clamp(3.5rem,15vw,14rem)] leading-[0.78] tracking-[-0.04em] text-bone/95">
+            GAURAV<span className="text-clay">.</span>
           </h2>
         </motion.div>
 
         <div className="mt-10 flex flex-col gap-4 text-[11px] uppercase tracking-[0.18em] text-bone/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Bliss Studio — Lisbon · Copenhagen</p>
+          <p>© {new Date().getFullYear()} Fashion by Gaurav — New Delhi · Lisbon · Copenhagen</p>
           <div className="flex gap-6">
             <span>Instagram</span>
             <span>Pinterest</span>

@@ -3,9 +3,9 @@ import { Counter, MaskText, Parallax, Reveal } from "@/components/motion-primiti
 import { EDITORIAL_IMAGES } from "@/lib/catalog";
 
 export const metadata = {
-  title: "The Atelier — Bliss",
+  title: "The Atelier — Fashion by Gaurav",
   description:
-    "How Bliss makes clothing: traceable fibres, eleven family workshops, published impact and free repairs for life.",
+    "How Fashion by Gaurav makes clothing: traceable fibres, artisan workshops, published impact and free repairs for life.",
 };
 
 const MATERIALS = [
@@ -18,7 +18,7 @@ const MATERIALS = [
 ];
 
 const TIMELINE = [
-  { year: "2019", title: "A room and a loom", body: "Bliss begins in a Lisbon apartment with forty linen shirts." },
+  { year: "2019", title: "A room and a loom", body: "Fashion by Gaurav begins with handcrafted shirts and bespoke tailoring." },
   { year: "2021", title: "Open ledger", body: "We publish our first full cost and mill breakdown. Nobody asked us to." },
   { year: "2023", title: "The Mending Service", body: "Free lifetime repairs launch. 1,900 garments mended since." },
   { year: "2026", title: "Circular by default", body: "Every new piece designed for disassembly and resale." },
@@ -35,9 +35,8 @@ export default function AtelierPage() {
         />
         <Reveal delay={0.2}>
           <p className="mt-10 max-w-xl text-[16px] leading-relaxed text-ink-soft">
-            Bliss is a small sustainable fashion house working between Lisbon and Copenhagen. We
-            design slowly, produce in batches of roughly 180, and publish what everything costs —
-            including the parts that are uncomfortable.
+            Fashion by Gaurav is an artisanal luxury house crafting slow, sustainable designer wear. We
+            design slowly, produce in small considered batches, and honor timeless tailoring.
           </p>
         </Reveal>
       </section>

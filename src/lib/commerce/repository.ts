@@ -71,11 +71,11 @@ export function prepareOrder(cartId: string, cart: CartPayload, delivery: Delive
     const subtotalCents = cart.items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
     const shippingCents = delivery.shippingMethod === "express" ? EXPRESS_SHIPPING : subtotalCents >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
     const order: CommerceOrder = {
-      orderNumber: `BLS-${randomUUID().replaceAll("-", "").slice(0, 20).toUpperCase()}`, cartId, fingerprint, createdAt: new Date().toISOString(), delivery, items: cart.items,
+      orderNumber: `FBG-${randomUUID().replaceAll("-", "").slice(0, 20).toUpperCase()}`, cartId, fingerprint, createdAt: new Date().toISOString(), delivery, items: cart.items,
       subtotalCents, shippingCents, totalCents: subtotalCents + shippingCents, currency: "INR", status: "pending", gatewayOrderId: null, paymentId: null, paidAt: null,
       isTest: process.env.RAZORPAY_KEY_ID?.startsWith("rzp_test_") ?? true,
       fulfillment: { status: "unfulfilled", partner: null, trackingNumber: null, trackingUrl: null },
-      seller: { name: process.env.SELLER_NAME || "Bliss", address: process.env.SELLER_ADDRESS || "", email: process.env.SELLER_EMAIL || "", gstin: process.env.SELLER_GSTIN || "" },
+      seller: { name: process.env.SELLER_NAME || "Fashion by Gaurav", address: process.env.SELLER_ADDRESS || "", email: process.env.SELLER_EMAIL || "", gstin: process.env.SELLER_GSTIN || "" },
     };
     db.prepare("INSERT INTO commerce_orders (order_number,cart_id,fingerprint,status,payload) VALUES (?,?,?,?,?)").run(order.orderNumber, cartId, fingerprint, order.status, JSON.stringify(order));
     for (const [id, item] of quantities) db.prepare("INSERT INTO commerce_reservations VALUES (?,?,?)").run(order.orderNumber, id, item.quantity);

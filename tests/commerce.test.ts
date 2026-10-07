@@ -14,7 +14,7 @@ process.env.COMMERCE_DB_PATH = join(mkdtempSync(join(tmpdir(), "bliss-test-")), 
 process.env.RAZORPAY_KEY_ID = "rzp_test_fixture";
 const details = { email: "buyer@example.com", fullName: "Test Buyer", phone: "9876543210", address: "10 Example Road", city: "Mumbai", state: "Maharashtra", postalCode: "400001", country: "India", note: "", shippingMethod: "standard" };
 function cart(id = 901, quantity = 1, stock = 4): CartPayload {
-  return { items: [{ id, productId: id, slug: "test-product", name: "Test product", image: "", colorName: "Sand", material: "Cotton", size: "M", quantity, priceCents: 42800, lineTotalCents: quantity * 42800, stock }], count: quantity, subtotalCents: quantity * 42800, shippingCents: 0, totalCents: quantity * 42800, freeShippingThresholdCents: 25000 };
+  return { items: [{ id, productId: id, slug: "test-product", name: "Test product", image: "", colorName: "Sand", material: "Cotton", size: "M", quantity, priceCents: 500000, lineTotalCents: quantity * 500000, stock }], count: quantity, subtotalCents: quantity * 500000, shippingCents: 0, totalCents: quantity * 500000, freeShippingThresholdCents: 499900 };
 }
 test("Indian money keeps numeric price and preserves paise", () => {
   assert.equal(formatPrice(42800), "₹428"); assert.equal(formatPrice(42850), "₹428.5"); assert.equal(formatPrice(12345600), "₹1,23,456");
@@ -41,11 +41,11 @@ test("checkout is idempotent, scoped to its owner, and protects stock", () => {
   assert.equal(getCommerceOrder(order.orderNumber, "cart-b"), null);
   assert.throws(() => prepareOrder("cart-a", cart(902), parseDelivery(details)), /pending payment/);
   assert.throws(() => prepareOrder("cart-b", cart(901, 4), parseDelivery(details)), /no longer available/);
-  assert.equal(order.totalCents, 42800);
+  assert.equal(order.totalCents, 500000);
 });
 test("payment matching requires captured status, exact INR amount and gateway order", () => {
   const order = attachGateway(prepareOrder("cart-c", cart(903), parseDelivery(details)).orderNumber, "order_fixture");
-  const payment = { id: "pay_fixture", order_id: "order_fixture", amount: 42800, currency: "INR", status: "captured" };
+  const payment = { id: "pay_fixture", order_id: "order_fixture", amount: 500000, currency: "INR", status: "captured" };
   assert.doesNotThrow(() => assertCaptured(order, payment));
   for (const change of [{ order_id: "order_someone_else" }, { amount: 1 }, { currency: "USD" }, { status: "authorized" }, { status: "failed" }]) assert.throws(() => assertCaptured(order, { ...payment, ...change }));
 });
@@ -62,7 +62,7 @@ test("duplicate callbacks settle once; payment IDs cannot be reused; test orders
 test("checkout ignores supplied line totals and recalculates totals from unit prices", () => {
   const bag = cart(906); bag.items[0].lineTotalCents = 1; bag.subtotalCents = 1; bag.totalCents = 1; bag.shippingCents = -100;
   const order = prepareOrder("cart-totals", bag, parseDelivery(details));
-  assert.equal(order.subtotalCents, 42800); assert.equal(order.totalCents, 42800);
+  assert.equal(order.subtotalCents, 500000); assert.equal(order.totalCents, 500000);
 });
 test("gateway fetch confirms actual capture and duplicate verification remains idempotent", async () => {
   const { settlePayment } = await import("../src/lib/commerce/razorpay");
@@ -73,7 +73,7 @@ test("gateway fetch confirms actual capture and duplicate verification remains i
     globalThis.fetch = async () => Response.json({ id: "pay_remote", order_id: "order_remote", amount: 1, currency: "INR", status: "captured" });
     await assert.rejects(() => settlePayment(order, "pay_remote"));
     assert.equal(getCommerceOrder(order.orderNumber)?.status, "pending");
-    globalThis.fetch = async () => Response.json({ id: "pay_remote", order_id: "order_remote", amount: 42800, currency: "INR", status: "captured" });
+    globalThis.fetch = async () => Response.json({ id: "pay_remote", order_id: "order_remote", amount: 500000, currency: "INR", status: "captured" });
     const paid = await settlePayment(order, "pay_remote");
     assert.equal(paid.status, "paid"); assert.equal((await settlePayment(order, "pay_remote")).paidAt, paid.paidAt);
   } finally { globalThis.fetch = original; }

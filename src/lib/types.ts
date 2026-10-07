@@ -28,7 +28,7 @@ export const EMPTY_CART: CartPayload = {
   subtotalCents: 0,
   shippingCents: 0,
   totalCents: 0,
-  freeShippingThresholdCents: 25000,
+  freeShippingThresholdCents: 499900,
 };
 
 export type ProductDTO = {

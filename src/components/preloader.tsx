@@ -56,7 +56,7 @@ export function Preloader() {
             transition={{ duration: 0.6 }}
             className="flex items-center justify-between"
           >
-            <span className="label-xs text-bone/50">Bliss — Spring / Summer 2026</span>
+            <span className="label-xs text-bone/50">Fashion by Gaurav — Spring / Summer 2026</span>
             <span className="label-xs text-bone/50">Lisbon</span>
           </motion.div>
 

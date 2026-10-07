@@ -9,9 +9,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
-  title: "Bliss — Considered Fashion, Made to Be Kept",
+  title: "Fashion by Gaurav — Considered Luxury Fashion, Made to Be Kept",
   description:
-    "Bliss is a sustainable fashion house crafting traceable, slow-made essentials from regenerative and reclaimed materials.",
+    "Fashion by Gaurav is an artisanal luxury house crafting traceable, slow-made designer fashion from regenerative and reclaimed materials.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

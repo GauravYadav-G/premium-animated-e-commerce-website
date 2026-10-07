@@ -14,13 +14,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   try {
     const product = await getProductBySlug(slug);
-    if (!product) return { title: "Not found — Bliss" };
+    if (!product) return { title: "Not found — Fashion by Gaurav" };
     return {
-      title: `${product.name} — Bliss`,
+      title: `${product.name} — Fashion by Gaurav`,
       description: product.tagline,
     };
   } catch {
-    return { title: "Bliss" };
+    return { title: "Fashion by Gaurav" };
   }
 }
 

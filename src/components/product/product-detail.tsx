@@ -42,10 +42,10 @@ export function ProductDetail({ product }: { product: ProductDTO }) {
       id: "shipping",
       title: "Shipping & returns",
       body: [
-        "Complimentary carbon-neutral shipping on orders over ₹250.",
+        "Complimentary carbon-neutral shipping on orders over ₹4,999.",
         "Delivery estimates are confirmed after dispatch.",
         "30-day returns, prepaid label included in every parcel.",
-        "Free lifetime repairs through the Bliss Mending Service.",
+        "Free lifetime repairs through the Fashion by Gaurav Mending Service.",
       ],
     },
   ];

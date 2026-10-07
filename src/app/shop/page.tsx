@@ -10,8 +10,8 @@ import type { ProductDTO } from "@/lib/types";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Shop — Bliss",
-  description: "Every piece in the Bliss collection: traceable, slow-made and built to last.",
+  title: "Shop — Fashion by Gaurav",
+  description: "Every piece in the Fashion by Gaurav collection: traceable, slow-made and built to last.",
 };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -81,9 +81,9 @@ export default async function ShopPage({ searchParams }: { searchParams: SearchP
 
       <section className="mt-28 grid gap-6 border-t border-ink/12 pt-12 md:grid-cols-3">
         {[
-          { title: "Carbon-neutral delivery", body: "Shipped plastic-free in reused paper. Free over ₹250." },
+          { title: "Carbon-neutral delivery", body: "Shipped plastic-free in reused paper. Free over ₹4,999." },
           { title: "Thirty-day returns", body: "Unworn, with tags. Return labels are prepaid worldwide." },
-          { title: "Repairs, forever", body: "Send any Bliss piece back and we will mend it at no cost." },
+          { title: "Repairs, forever", body: "Send any Fashion by Gaurav piece back and we will mend it at no cost." },
         ].map((item, index) => (
           <Reveal key={item.title} delay={index * 0.08}>
             <h3 className="font-display text-[22px]">{item.title}</h3>
