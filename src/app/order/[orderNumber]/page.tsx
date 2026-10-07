@@ -1,0 +1,19 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { readCartId } from "@/lib/session";
+import { getCommerceOrder } from "@/lib/commerce/repository";
+import { formatPrice } from "@/lib/utils";
+import { SuccessMark } from "@/components/order/success-mark";
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export default async function OrderPage({ params }: { params: Promise<{ orderNumber: string }> }) {
+  const { orderNumber } = await params; const cartId = await readCartId();
+  const order = cartId ? getCommerceOrder(orderNumber, cartId) : null;
+  if (!order) notFound();
+  const paid = order.status === "paid";
+  return <div className="mx-auto max-w-[1100px] px-5 pb-28 pt-16 md:px-10">
+    <div className="text-center">{paid && <div className="flex justify-center"><SuccessMark /></div>}<p className="label-xs mt-6 text-mist">Order {order.orderNumber}</p><h1 className="font-display mt-5 text-[clamp(2.4rem,6vw,4.6rem)] leading-tight">{paid ? "Thank you. Your order is confirmed." : "Your payment is pending."}</h1><p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ink-soft">{paid ? "Payment has been verified. Delivery and tracking details will be updated here when your order is dispatched." : "Your order is saved. Return to checkout to resume payment or check its status. If your account was debited, check status before paying again."}</p>{order.isTest && <p className="mt-4 text-sm text-ember">Razorpay test order — no real payment or delivery.</p>}</div>
+    <div className="mt-12 grid gap-8 md:grid-cols-[1.2fr_0.8fr]"><section className="rounded border border-ink/15 p-6"><h2 className="font-display text-2xl">Your pieces</h2><ul className="mt-5 divide-y divide-ink/10">{order.items.map(i => <li key={`${i.productId}-${i.size}`} className="flex items-center gap-4 py-4"><div className="min-w-0 flex-1"><Link href={`/product/${i.slug}`} className="text-sm hover:underline">{i.name}</Link><p className="mt-1 text-xs text-mist">{i.size} · Quantity {i.quantity}</p></div><span className="text-sm">{formatPrice(i.priceCents * i.quantity)}</span></li>)}</ul><dl className="mt-5 space-y-3 border-t border-ink/15 pt-5 text-sm"><div className="flex justify-between"><dt>Subtotal</dt><dd>{formatPrice(order.subtotalCents)}</dd></div><div className="flex justify-between"><dt>Shipping</dt><dd>{formatPrice(order.shippingCents)}</dd></div><div className="flex justify-between font-medium"><dt>{paid ? "Total paid" : "Total due"}</dt><dd>{formatPrice(order.totalCents)}</dd></div></dl>{paid && <Link href={`/order/${orderNumber}/invoice`} className="mt-8 inline-block rounded-full bg-ink px-6 py-3 text-sm text-bone">View invoice / receipt</Link>}{!paid && <Link href="/checkout" className="mt-8 inline-block rounded-full bg-ink px-6 py-3 text-sm text-bone">Return to checkout</Link>}</section>
+    <aside className="rounded bg-bone-deep/50 p-6"><h2 className="label-xs text-mist">Delivery address</h2><address className="mt-5 text-sm not-italic leading-7">{order.delivery.fullName}<br />{order.delivery.address}<br />{order.delivery.city}, {order.delivery.state} {order.delivery.postalCode}<br />India<br />{order.delivery.phone}</address><h3 className="label-xs mt-8 text-mist">Delivery status</h3><p className="mt-3 text-sm">{order.fulfillment.status === "unfulfilled" ? paid ? "Awaiting dispatch" : "Awaiting payment" : order.fulfillment.status === "shipped" ? "Dispatched" : "Delivered"}</p>{order.fulfillment.partner && <p className="mt-3 text-sm">{order.fulfillment.partner} · {order.fulfillment.trackingNumber}</p>}{order.fulfillment.trackingUrl && <a href={order.fulfillment.trackingUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm underline">Track delivery</a>}<Link href="/shop" className="mt-8 block text-sm underline">Continue shopping</Link></aside></div>
+  </div>;
+}
